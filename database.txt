@@ -1,0 +1,33 @@
+create table documentation(
+id serial primary key,
+title varchar(255) not null,
+content text not null
+)
+
+
+--------------------------------------------
+Table students{
+  id integer [primary key]
+  surname varchar
+}
+
+
+Table work{
+  id integer [primary key]
+  typeofwork text
+}
+
+Table documentation{
+  id integer [primary key]
+  id_student integer
+  id_work integer
+  resofwork text
+  data date
+}
+
+alter table "documentation" add constraint "doc_fkey" foreign key ("id_student") references "students" ("id")
+
+
+Ref: "students"."id" < "documentation"."id_student"
+
+Ref: "work"."id" < "documentation"."id_work"
