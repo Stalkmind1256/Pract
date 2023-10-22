@@ -16,7 +16,7 @@
     }
 
     // Retrieving the documentation list from the database
-    $query = "SELECT title, content FROM documentation";
+    $query = "SELECT s.surname, d.title, d.resalt, d.marks FROM students s INNER JOIN documentation d ON s.id = d.id_student";
     $result = pg_query($connect, $query);
 
     if (!$result) {
@@ -25,12 +25,20 @@
 
     $documentationList = pg_fetch_all($result);
 
+    $error = pg_last_error($connect);
+    if ($error) {
+        die("Ошибка при выполнении запроса: " . $error);
+    }
+
+
     // Displaying the documentation list
-    foreach ($documentationList as $document) {
+    foreach ($documentationList as $row) {
         echo "<div class='card my-2'>";
         echo "<div class='card-body'>";
-        echo "<h5 class='card-title'>" . $document['title'] . "</h5>"; 
-        echo "<p class='card-text'>" . $document['content'] . "</p>";
+        echo "<h5 class='card-title'>" . $row['surname'] . "</h5>";
+        echo "<p class='card-text'>" . $row['title'] . "</p>";
+        echo "<p class='card-text'>" . $row['resalt'] . "</p>";
+        echo "<p class='card-number'>" . $row['marks'] . "</p>";    
         echo "</div>";
         echo "</div>";
     }
