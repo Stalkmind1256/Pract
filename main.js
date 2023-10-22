@@ -1,47 +1,52 @@
 $(document).ready(function(){
-    //Обработка отправки формы
+    // Обработка отправки формы
     $("#documentForm").submit(function(event){
         event.preventDefault();
-    
-        //Получение значений
+
+        // Получение значений
+        var surname = $("#surname").val();
         var title = $("#title").val();
-        var content = $("#content").val();
-    
-        //Отправка на сервер
+        var resalt = $("#resalt").val();
+        var marks = $("#marks").val();
+
+        // Отправка на сервер
         $.ajax({
-            type:"POST",
-            url:"create_documentation.php",
-            data:{
+            url: "create_documentation.php",
+            type: "POST",
+            data: {
+                surname: surname,
                 title: title,
-                content: content
+                resalt:resalt,
+                marks:marks 
             },
-            success:function(response){
-                //Обработка ответа от сервера
-                if(response.success){
-                    //Документ создан, обновляем лист
+            success: function(response) {
+                // Обработка ответа от сервера
+                if(response.success) {
+                    // Документ создан, обновляем список
                     loadDocumentationList();
-                }else{
+                } else {
                     console.log("Ошибка при создании документации");
                 }
             },
-            error: function(){
+            error: function() {
                 console.log("Ошибка при отправке AJAX-запроса");
             }
         });
     });
-    //Загрузка документации при загрузке страницы
-    loadDocumentationList();
-})
 
-function loadDocumentationList(){
+    // Загрузка документации при загрузке страницы
+    loadDocumentationList();
+});
+
+function loadDocumentationList() {
     $.ajax({
-        type:"GET",
-        url:"documentation_list.php",
-        success:function(response){
-            //Вставка списка докум. в div с id documentationList
-            $("#documentationList").text(response);
+        type: "GET",
+        url: "documentation_list.php",
+        success: function(response) {
+            // Вставка списка документов в div с id documentationList
+            $("#documentationList").html(response);
         },
-        error:function(){
+        error: function() {
             console.log("Ошибка при загрузке списка документации");
         }
     });
