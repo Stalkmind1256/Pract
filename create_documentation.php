@@ -19,6 +19,7 @@ $surname = isset($_POST['surname']) ? $_POST['surname'] : '';
 $title = isset($_POST['title']) ? $_POST['title'] : '';
 $resalt = isset($_POST['resalt']) ? $_POST['resalt'] : '';
 $marks = isset($_POST['marks']) ? $_POST['marks'] : '';
+$dated = isset($_POST['dated']) ? $_POST['dated'] : '';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $title = $_POST['title'];
   $resalt = $_POST['resalt'];
   $marks = $_POST['marks'];
+  $dated = $_POST['dated'];
 
   // Подготовка и выполнение запроса вставки данных в таблицу Students
   $queryStudents = "INSERT INTO public.students(surname) VALUES ($1) RETURNING id";
@@ -38,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     // Подготовка и выполнение запроса вставки данных в таблицу Documentation с указанием foreign key
-    $queryDocumentation = "INSERT INTO public.documentation(title, id_student, resalt, marks) VALUES ($1, $2, $3,$4)";
-    $paramsDocumentation = array($title, $studentId, $resalt,$marks);
+    $queryDocumentation = "INSERT INTO public.documentation(title, id_student, resalt, marks, dated) VALUES ($1, $2, $3, $4, $5)";
+    $paramsDocumentation = array($title, $studentId, $resalt,$marks, $dated);
     $resultDocumentation = pg_query_params($connect, $queryDocumentation, $paramsDocumentation);
 
     if ($resultDocumentation) {

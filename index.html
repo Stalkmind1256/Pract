@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--Bootstrap css -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <title>Генератор документации</title>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Генератор Документации по практике</h1>
+    <form id="documentForm">
+      <div class="form-group">
+        <input type="text" class="form-control" id="surname" placeholder="Введите Фамилию">
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" id="title" rows="5" placeholder="Введите вид работы"></textarea>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" id="resalt" rows="5" placeholder="Введите результат работы"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="marks" placeholder="Введите оценку">
+      </div>
+      <div class="form-group">
+        <input type="date" class="form-control" id="dated" placeholder="Введите оценку">
+      </div>
+      <button type="submit" class="btn btn-primary">Добавить</button>
+      <button type="submit" class="btn btn-primary" onclick="redirectToDocumentation()">Создать Документацию</button>
+    </form>
+  </div>
+</body>
+<script>
+  var surnameInput = document.getElementById('surname');
+
+// Когда пользователь покидает поле ввода, вызываем функцию capitalize()
+surnameInput.addEventListener('blur', capitalize);
+
+// Функция, которая преобразует первый символ введенной фамилии в заглавную букву
+function capitalize() {
+  var surnameValue = surnameInput.value;
+  
+  // Проверяем, что введенная фамилия не является пустой строкой
+  if (surnameValue != "") {
+    var capitalizedSurname = surnameValue.charAt(0).toUpperCase() + surnameValue.slice(1);
+  
+    // Устанавливаем значение с заглавной буквой обратно в поле ввода
+    surnameInput.value = capitalizedSurname;
+  }
+}
+
+function redirectToDocumentation() {
+  window.location.href = "documentation_list.php";
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="main.js"></script>
+</html>

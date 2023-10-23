@@ -8,6 +8,7 @@ $(document).ready(function(){
         var title = $("#title").val();
         var resalt = $("#resalt").val();
         var marks = $("#marks").val();
+        var dated = $("#dated").val();
 
         // Отправка на сервер
         $.ajax({
@@ -17,7 +18,8 @@ $(document).ready(function(){
                 surname: surname,
                 title: title,
                 resalt:resalt,
-                marks:marks 
+                marks:marks,
+                dated:dated
             },
             success: function(response) {
                 // Обработка ответа от сервера
